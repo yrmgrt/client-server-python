@@ -5,7 +5,7 @@ from utils.api import get_all_token_set
 from utils.logger import logger
 from .atmiv import memory_atm_iv
 import warnings
-from utils.common import asset2df
+from utils.common import network_asset2df
 warnings.filterwarnings("ignore")
 
 class ATR_IV:
@@ -16,9 +16,9 @@ class ATR_IV:
         self.expiry_2_long: pd.DataFrame = pd.DataFrame()
 
     def initialize(self):
-        self.expiry_1 = asset2df("latest_atr_per_symbol.csv")
-        self.expiry_2 = asset2df("latest_atr_per_symbol.csv")
-        self.iv_stats = asset2df('iv_stats.csv')
+        self.expiry_1 = network_asset2df("latest_atr_per_symbol.csv")
+        self.expiry_2 = network_asset2df("latest_atr_per_symbol.csv")
+        self.iv_stats = network_asset2df('iv_stats.csv')
         self.expiry_1['long_hv'] = self.expiry_1['ATR_pct'] * 0.6 * 15
         self.expiry_1['short_hv'] = self.expiry_1['ATR_pct'] * 1 * 20 * 0.6  
 

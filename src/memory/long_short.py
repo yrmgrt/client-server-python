@@ -6,7 +6,7 @@ from utils.logger import logger
 from .atmiv import memory_atm_iv
 import warnings
 import json
-from utils.common import asset2df, CONFIG
+from utils.common import asset2df, network_asset2df, CONFIG
 from datetime import datetime, timedelta
 warnings.filterwarnings("ignore")
 
@@ -29,13 +29,13 @@ class LS_IV:
         return symbols_list
 
     def initialize(self):
-        self.expiry_1 = asset2df("avg_risk_prem.csv")
+        self.expiry_1 = network_asset2df("avg_risk_prem.csv")
         today = datetime.today().date()
         future_date = today + timedelta(days=NO_OF_DAYS_TO_RESULT)
         future_date = str(future_date)
         today = str(today)
         
-        confirmed_df = asset2df("confirm_results.csv")
+        confirmed_df = network_asset2df("confirm_results.csv")
         expected_df = asset2df("expected_results.csv")
         expected_df = expected_df[~expected_df["symbol"].isin(confirmed_df["symbol"].tolist())]
 
@@ -44,8 +44,8 @@ class LS_IV:
         confirmed_df_current = confirmed_df[(confirmed_df["date"]>=today)&(confirmed_df["date"]<EXPIRY[0])]
         confirmed_df_next = confirmed_df[(confirmed_df["date"]>=EXPIRY[0])&(confirmed_df["date"]<EXPIRY[1])]
 
-        self.expiry_1_fwd = asset2df("forward_vol_expiry_1.csv")
-        self.expiry_2_fwd = asset2df("forward_vol_expiry_2.csv")
+        self.expiry_1_fwd = network_asset2df("forward_vol_expiry_1.csv")
+        self.expiry_2_fwd = network_asset2df("forward_vol_expiry_2.csv")
 
         self.result_confirmed_current = confirmed_df_current["symbol"].tolist()
         self.result_confirmed_next = confirmed_df_next["symbol"].tolist()

@@ -5,7 +5,7 @@ import numpy as np
 import json
 from datetime import datetime
 from contants.dates import EXPIRY
-from utils.common import asset2df, ASSET_DIR, cols_2, CONFIG
+from utils.common import asset2df, network_asset2df, ASSET_DIR, cols_2, CONFIG
 from utils.api import get_atm_iv_from_api, get_z_score_from_api
 from utils.logger import logger
 
@@ -29,7 +29,7 @@ class ATM_IV:
         self.move_tracker: pd.DataFrame = pd.DataFrame()
     
     def _initialize_df(self, filename: str) -> pd.DataFrame:
-        df = asset2df(filename)
+        df = network_asset2df(filename)
         df = df[["symbol", "long_move", "full_move", "fut_close"]]
         df.rename(columns={"long_move": "long_move_val", "fut_close": "fut_benchmark"}, inplace=True)
         df["fut_benchmark"] = df["fut_benchmark"].astype(float)

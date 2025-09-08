@@ -4,7 +4,7 @@ import pandas as pd
 from datetime import datetime
 from functools import lru_cache
 from utils.logger import log_execution_time
-from utils.common import asset2df
+from utils.common import asset2df, network_asset2df
 from concurrent.futures import ThreadPoolExecutor
 from contants.color import get_color
 from memory.atmiv import memory_atm_iv
@@ -26,7 +26,7 @@ from memory.iv_surface import memory_surface_scan_iv
 @lru_cache(maxsize=None)
 def initialize_metadata():
     expected_df = asset2df("expected_results.csv")
-    confirmed_df = asset2df("confirm_results.csv")
+    confirmed_df = network_asset2df("confirm_results.csv")
 
     merged_df = (
         pd.merge(

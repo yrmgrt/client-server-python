@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from typing import Literal
 from .atmiv import memory_atm_iv
-from utils.common import asset2df
+from utils.common import network_asset2df
 from concurrent.futures import ThreadPoolExecutor
 import warnings
 warnings.filterwarnings("ignore")
@@ -15,7 +15,7 @@ class Correlation:
         self.expiry_2_with_atm: pd.DataFrame = pd.DataFrame()
 
     def _initialize_df(self, filename: str) -> pd.DataFrame:
-        df = asset2df(filename)
+        df = network_asset2df(filename)
         columns_to_keep = ["stock_1", "stock_2", "avg_ratio"]
         return df[columns_to_keep]
     

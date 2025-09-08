@@ -1,7 +1,7 @@
 from typing import Literal, Optional
 import pandas as pd
 import json
-from utils.common import asset2df, CONFIG
+from utils.common import network_asset2df, CONFIG
 from datetime import datetime
 from .atmiv import memory_atm_iv
 
@@ -15,7 +15,7 @@ class Vol:
         self.expiry_2_with_atm: pd.DataFrame = pd.DataFrame()
 
     def _initialize_df(self, filename: str) -> pd.DataFrame:
-        df = asset2df(filename)
+        df = network_asset2df(filename)
         df = df.drop(df.columns[0], axis=1)
         df["vol_benchmark"] = df["forward_vol"].astype(float).round(1)
         df["vol_benchmark_prev"] = df["forward_vol"].astype(float).round(1)
