@@ -7,7 +7,7 @@ from utils.api import get_all_token_set
 from utils.logger import logger
 from .atmiv import memory_atm_iv
 import warnings
-from utils.common import asset2df, ASSET_DIR
+from utils.common import asset2df, network_asset2df, ASSET_DIR
 warnings.filterwarnings("ignore")
 
 date_today = datetime.now().date()
@@ -30,9 +30,9 @@ class INTRA_L_S:
         return (yest_df[["symbol", "long_moves_yest"]], yest_file_path)
 
     def initialize(self):
-        self.expiry_1_fwd = asset2df("forward_vol_expiry_1.csv")
-        self.expiry_2_fwd = asset2df("forward_vol_expiry_2.csv")
-        self.iv_stats_df = asset2df("iv_stats.csv")
+        self.expiry_1_fwd = network_asset2df("forward_vol_expiry_1.csv")
+        self.expiry_2_fwd = network_asset2df("forward_vol_expiry_2.csv")
+        self.iv_stats_df = network_asset2df("iv_stats.csv")
         self.yest_idv_df, temp = self.select_latest_idv()
 
     def _process_intra_long_short(self):

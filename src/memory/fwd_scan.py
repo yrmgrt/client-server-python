@@ -5,7 +5,7 @@ from utils.api import get_all_token_set
 from utils.logger import logger
 from .atmiv import memory_atm_iv
 import warnings
-from utils.common import asset2df
+from utils.common import network_asset2df
 warnings.filterwarnings("ignore")
 
 class FWD_IV:
@@ -16,8 +16,8 @@ class FWD_IV:
         self.expiry_2_blw_fwd: pd.DataFrame = pd.DataFrame()
 
     def initialize(self):
-        self.expiry_1 = asset2df("forward_vol_expiry_1.csv")
-        self.expiry_2 = asset2df("forward_vol_expiry_2.csv")
+        self.expiry_1 = network_asset2df("forward_vol_expiry_1.csv")
+        self.expiry_2 = network_asset2df("forward_vol_expiry_2.csv")
 
 
     def _process_fwd_iv(self):
